@@ -1,0 +1,104 @@
+.quick-add-title {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  color: var(--text-primary);
+}
+
+.quick-add-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  padding-bottom: var(--space-md);
+}
+
+.quick-add-type-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-lg) var(--space-sm);
+  background: var(--btn-bg);
+  border-radius: var(--radius-xl);
+  transition: transform var(--duration-fast) var(--ease-smooth);
+  min-height: 88px;
+}
+
+.quick-add-type-btn:active {
+  transform: scale(0.94);
+}
+
+.quick-add-type-icon {
+  font-size: 24px;
+}
+
+.quick-add-type-label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.quick-add-form {
+  animation: fadeInUp var(--duration-normal) var(--ease-smooth);
+}
+
+.quick-add-form-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.quick-add-back {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  padding: var(--space-xs);
+  margin: calc(-1 * var(--space-xs));
+}
+
+.quick-add-input {
+  font-size: var(--text-md) !important;
+  padding: var(--space-md) !important;
+}
+
+.quick-add-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.cat-tag-selected {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.quick-add-row {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.quick-add-priorities {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.quick-add-priority {
+  flex: 1;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  background: var(--cream);
+  color: var(--text-tertiary);
+  transition: all var(--duration-fast) var(--ease-smooth);
+  min-height: 36px;
+}
+
+.quick-add-priority.active {
+  background: var(--pink-100);
+  color: var(--pink-500);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}

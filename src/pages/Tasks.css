@@ -1,0 +1,188 @@
+/* ═══════════════════════════════════════════
+   Tasks Page Styles
+   ═══════════════════════════════════════════ */
+
+.tasks-filters {
+  display: flex;
+  gap: var(--space-xs);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.tasks-filters::-webkit-scrollbar { display: none; }
+
+.tasks-filter-btn {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  background: var(--white);
+  color: var(--text-tertiary);
+  min-height: 36px;
+  transition: all var(--duration-fast) var(--ease-smooth);
+  box-shadow: var(--shadow-xs);
+}
+
+.tasks-filter-btn.active {
+  background: var(--pink-200);
+  color: var(--cat-personal-text);
+}
+
+.tasks-filter-btn:active {
+  transform: scale(0.94);
+}
+
+/* ── Task Groups ── */
+.task-group {
+  margin-bottom: var(--space-xl);
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* ── Task Item ── */
+.task-item {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-xs);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.task-item.completed {
+  opacity: 0.55;
+}
+
+.task-item.celebrating {
+  animation: pop var(--duration-slow) var(--ease-bounce);
+}
+
+.task-item-main {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  cursor: pointer;
+}
+
+.task-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-item-title {
+  display: block;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.task-item.completed .task-item-title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.task-item-desc {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-xs);
+}
+
+.task-item-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.task-priority-badge {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--pink-100);
+  color: var(--pink-400);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Subtasks ── */
+.task-subtasks {
+  margin-top: var(--space-sm);
+  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--cream);
+}
+
+.task-subtask-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.task-subtask-title {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.task-subtask-title.done {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+/* ── Actions ── */
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--cream);
+}
+
+.task-action-btn {
+  font-size: var(--text-sm);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  min-height: 32px;
+}
+
+.task-action-btn.delete {
+  color: var(--pink-400);
+  background: var(--pink-50);
+}
+
+/* ── Celebration ── */
+.task-celebrate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.task-celebrate-icon {
+  position: absolute;
+  font-size: 20px;
+  animation: confetti 0.8s ease-out forwards;
+}
+
+.task-celebrate-icon.star {
+  animation-delay: 0.1s;
+  left: 15px;
+}

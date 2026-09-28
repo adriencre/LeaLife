@@ -1,0 +1,295 @@
+/* ═══════════════════════════════════════════
+   Me Page Styles
+   ═══════════════════════════════════════════ */
+
+.me-subtitle {
+  font-size: var(--text-md);
+  color: var(--text-tertiary);
+  margin-top: 4px;
+}
+
+/* ── Profile Card ── */
+.me-profile-card {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg);
+  margin-bottom: var(--space-xl);
+  background: linear-gradient(135deg, var(--pink-50), var(--lavender-50));
+}
+
+.me-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--pink-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto var(--space-md);
+  box-shadow: 0 4px 16px rgba(244, 160, 184, 0.2);
+}
+
+.me-profile-desc {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  margin-top: 4px;
+}
+
+/* ── Sections Grid ── */
+.me-sections-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.me-section-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--section-bg);
+  border: 1px solid var(--section-border);
+  border-radius: var(--radius-xl);
+  transition: transform var(--duration-fast) var(--ease-smooth);
+  min-height: 56px;
+  text-align: left;
+}
+
+.me-section-btn:active {
+  transform: scale(0.97);
+}
+
+.me-section-icon {
+  font-size: 22px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.me-section-label {
+  flex: 1;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.me-section-arrow {
+  color: var(--text-muted);
+  font-size: var(--text-base);
+}
+
+/* ── Section Content ── */
+.me-section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  padding-top: var(--space-lg);
+}
+
+.me-back-btn {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  padding: var(--space-xs);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Internship ── */
+.me-internship-card {
+  margin-bottom: var(--space-md);
+}
+
+.me-internship-info {
+  margin-top: var(--space-md);
+}
+
+.me-info-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.me-schedule-title {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.me-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.me-schedule-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}
+
+.me-schedule-row.off {
+  opacity: 0.4;
+}
+
+.me-schedule-day {
+  font-weight: 500;
+  color: var(--text-primary);
+  min-width: 80px;
+}
+
+.me-schedule-time {
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Studies ── */
+.me-studies-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.me-studies-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.me-coming-soon {
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: var(--space-xl);
+  font-size: var(--text-md);
+}
+
+/* ── Basketball ── */
+.me-game-card {
+  text-align: center;
+  background: linear-gradient(135deg, var(--peach-50), var(--butter-50));
+}
+
+.me-game-badge {
+  display: inline-block;
+}
+
+.me-checklist-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xs) 0;
+  min-height: 40px;
+}
+
+.me-training-item {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--cream);
+}
+
+.me-training-item:last-child {
+  border-bottom: none;
+}
+
+.me-training-day {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.me-training-time {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+/* ── Brain Dump ── */
+.me-dump-subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-lg);
+}
+
+.me-dump-input-wrapper {
+  margin-bottom: var(--space-xl);
+}
+
+.me-dump-textarea {
+  min-height: 100px;
+  line-height: 1.6;
+  font-size: var(--text-base) !important;
+  background: var(--white) !important;
+  padding: var(--space-md) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-xs);
+  resize: vertical;
+}
+
+.me-dump-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.me-dump-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md) !important;
+}
+
+.me-dump-text {
+  flex: 1;
+  font-size: var(--text-base);
+  color: var(--text-primary);
+}
+
+.me-dump-actions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.me-dump-action {
+  font-size: var(--text-xs);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--pink-50);
+  color: var(--pink-400);
+  font-weight: 500;
+  min-height: 28px;
+}
+
+.me-dump-action.delete {
+  background: var(--cream);
+  color: var(--text-muted);
+  font-size: 16px;
+}
+
+/* ── Settings ── */
+.me-settings-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) 0;
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  width: 100%;
+  text-align: left;
+  min-height: 44px;
+}
