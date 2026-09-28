@@ -2,7 +2,7 @@
 // Local Storage Utility for LéaBloom
 // ═══════════════════════════════════════════
 
-const STORAGE_PREFIX = 'leabloom_';
+const STORAGE_PREFIX = 'lealife_';
 
 export const storage = {
   get(key, defaultValue = null) {

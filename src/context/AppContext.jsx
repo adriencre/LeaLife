@@ -6,8 +6,22 @@ const AppContext = createContext();
 
 // ─── Initial State ───
 function getInitialState() {
+  // Clear any legacy leabloom data from older versions
+  try {
+    localStorage.removeItem('leabloom_appState');
+  } catch {
+    // Ignore in private browsing
+  }
+
   const saved = storage.get('appState');
-  if (saved) return saved;
+  if (saved) {
+    // Ensure no legacy mock data is present
+    const hasMock = saved.events?.some(e => e.id === 'ev1') || saved.goals?.some(g => g.id === 'gl1');
+    if (!hasMock) {
+      return saved;
+    }
+  }
+
   const seed = getSeedData();
   storage.set('appState', seed);
   return seed;
@@ -223,7 +237,7 @@ export function AppProvider({ children }) {
   // Sync across tabs
   useEffect(() => {
     const handleStorage = (e) => {
-      if (e.key === 'leabloom_appState' && e.newValue) {
+      if (e.key === 'lealife_appState' && e.newValue) {
         // Reload state from storage
         window.location.reload();
       }

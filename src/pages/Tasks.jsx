@@ -3,6 +3,95 @@ import { useApp } from '../context/AppContext';
 import { CATEGORIES, haptic, isToday, isThisWeek } from '../utils/helpers';
 import './Tasks.css';
 
+function TaskItem({ task, celebrateId, onToggle, onDelete, onToggleSubtask }) {
+  const [showActions, setShowActions] = useState(false);
+  
+  return (
+    <div 
+      className={`task-item ${task.completed ? 'completed' : ''} ${celebrateId === task.id ? 'celebrating' : ''}`}
+    >
+      <div className="task-item-main" onClick={() => setShowActions(!showActions)}>
+        <div className="checkbox-wrapper" onClick={(e) => { e.stopPropagation(); onToggle(task.id); }}>
+          <input type="checkbox" checked={task.completed} readOnly />
+          <div className="checkbox-circle" />
+        </div>
+        <div className="task-item-content">
+          <span className="task-item-title">{task.title}</span>
+          {task.description && (
+            <span className="task-item-desc">{task.description}</span>
+          )}
+          <div className="task-item-meta">
+            <span className={`cat-tag cat-${task.category}`} style={{ fontSize: '11px', padding: '2px 8px' }}>
+              {CATEGORIES[task.category]?.icon} {CATEGORIES[task.category]?.label}
+            </span>
+            {task.priority === 'high' && <span className="task-priority-badge">!</span>}
+          </div>
+        </div>
+      </div>
+      
+      {/* Subtasks */}
+      {task.subtasks?.length > 0 && (
+        <div className="task-subtasks">
+          {task.subtasks.map(st => (
+            <div key={st.id} className="task-subtask-item">
+              <div className="checkbox-wrapper" style={{ width: 18, height: 18 }} onClick={() => {
+                haptic('light');
+                onToggleSubtask(task.id, st.id);
+              }}>
+                <input type="checkbox" checked={st.completed} readOnly />
+                <div className="checkbox-circle" style={{ width: 18, height: 18, borderWidth: 1.5 }} />
+              </div>
+              <span className={`task-subtask-title ${st.completed ? 'done' : ''}`}>{st.title}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {showActions && (
+        <div className="task-actions animate-fade-in">
+          <button className="task-action-btn delete" onClick={() => onDelete(task.id)}>
+            Supprimer
+          </button>
+        </div>
+      )}
+
+      {/* Celebration */}
+      {celebrateId === task.id && (
+        <div className="task-celebrate">
+          <span className="task-celebrate-icon">🌸</span>
+          <span className="task-celebrate-icon star">✨</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TaskGroup({ title, tasks, emptyText, celebrateId, onToggle, onDelete, onToggleSubtask }) {
+  return (
+    <div className="task-group">
+      <h3 className="section-title">{title}</h3>
+      {tasks.length > 0 ? (
+        <div className="task-list">
+          {tasks.map(t => (
+            <TaskItem 
+              key={t.id} 
+              task={t} 
+              celebrateId={celebrateId} 
+              onToggle={onToggle} 
+              onDelete={onDelete} 
+              onToggleSubtask={onToggleSubtask} 
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="card" style={{ textAlign: 'center', padding: 'var(--space-lg)', color: 'var(--text-tertiary)' }}>
+          <p style={{ fontSize: 'var(--text-sm)' }}>{emptyText}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Tasks() {
   const { state, dispatch } = useApp();
   const [filter, setFilter] = useState('all');
@@ -40,83 +129,9 @@ export default function Tasks() {
     dispatch({ type: 'DELETE_TASK', payload: id });
   };
 
-  const TaskItem = ({ task }) => {
-    const [showActions, setShowActions] = useState(false);
-    
-    return (
-      <div 
-        className={`task-item ${task.completed ? 'completed' : ''} ${celebrateId === task.id ? 'celebrating' : ''}`}
-      >
-        <div className="task-item-main" onClick={() => setShowActions(!showActions)}>
-          <div className="checkbox-wrapper" onClick={(e) => { e.stopPropagation(); handleToggle(task.id); }}>
-            <input type="checkbox" checked={task.completed} readOnly />
-            <div className="checkbox-circle" />
-          </div>
-          <div className="task-item-content">
-            <span className="task-item-title">{task.title}</span>
-            {task.description && (
-              <span className="task-item-desc">{task.description}</span>
-            )}
-            <div className="task-item-meta">
-              <span className={`cat-tag cat-${task.category}`} style={{ fontSize: '11px', padding: '2px 8px' }}>
-                {CATEGORIES[task.category]?.icon} {CATEGORIES[task.category]?.label}
-              </span>
-              {task.priority === 'high' && <span className="task-priority-badge">!</span>}
-            </div>
-          </div>
-        </div>
-        
-        {/* Subtasks */}
-        {task.subtasks?.length > 0 && (
-          <div className="task-subtasks">
-            {task.subtasks.map(st => (
-              <div key={st.id} className="task-subtask-item">
-                <div className="checkbox-wrapper" style={{ width: 18, height: 18 }} onClick={() => {
-                  haptic('light');
-                  dispatch({ type: 'TOGGLE_SUBTASK', payload: { taskId: task.id, subtaskId: st.id } });
-                }}>
-                  <input type="checkbox" checked={st.completed} readOnly />
-                  <div className="checkbox-circle" style={{ width: 18, height: 18, borderWidth: 1.5 }} />
-                </div>
-                <span className={`task-subtask-title ${st.completed ? 'done' : ''}`}>{st.title}</span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {showActions && (
-          <div className="task-actions animate-fade-in">
-            <button className="task-action-btn delete" onClick={() => handleDelete(task.id)}>
-              Supprimer
-            </button>
-          </div>
-        )}
-
-        {/* Celebration */}
-        {celebrateId === task.id && (
-          <div className="task-celebrate">
-            <span className="task-celebrate-icon">🌸</span>
-            <span className="task-celebrate-icon star">✨</span>
-          </div>
-        )}
-      </div>
-    );
+  const handleToggleSubtask = (taskId, subtaskId) => {
+    dispatch({ type: 'TOGGLE_SUBTASK', payload: { taskId, subtaskId } });
   };
-
-  const TaskGroup = ({ title, tasks, emptyText }) => (
-    <div className="task-group">
-      <h3 className="section-title">{title}</h3>
-      {tasks.length > 0 ? (
-        <div className="task-list">
-          {tasks.map(t => <TaskItem key={t.id} task={t} />)}
-        </div>
-      ) : (
-        <div className="card" style={{ textAlign: 'center', padding: 'var(--space-lg)', color: 'var(--text-tertiary)' }}>
-          <p style={{ fontSize: 'var(--text-sm)' }}>{emptyText}</p>
-        </div>
-      )}
-    </div>
-  );
 
   return (
     <div className="page tasks-page" id="page-tasks">
@@ -148,9 +163,33 @@ export default function Tasks() {
       </div>
 
       {/* Task Groups */}
-      <TaskGroup title="Aujourd'hui" tasks={todayTasks} emptyText="Rien pour aujourd'hui ✨" />
-      <TaskGroup title="Cette semaine" tasks={weekTasks} emptyText="Semaine libre ♡" />
-      <TaskGroup title="Plus tard" tasks={laterTasks} emptyText="Rien de prévu" />
+      <TaskGroup 
+        title="Aujourd'hui" 
+        tasks={todayTasks} 
+        emptyText="Rien pour aujourd'hui ✨" 
+        celebrateId={celebrateId} 
+        onToggle={handleToggle} 
+        onDelete={handleDelete} 
+        onToggleSubtask={handleToggleSubtask} 
+      />
+      <TaskGroup 
+        title="Cette semaine" 
+        tasks={weekTasks} 
+        emptyText="Semaine libre ♡" 
+        celebrateId={celebrateId} 
+        onToggle={handleToggle} 
+        onDelete={handleDelete} 
+        onToggleSubtask={handleToggleSubtask} 
+      />
+      <TaskGroup 
+        title="Plus tard" 
+        tasks={laterTasks} 
+        emptyText="Rien de prévu" 
+        celebrateId={celebrateId} 
+        onToggle={handleToggle} 
+        onDelete={handleDelete} 
+        onToggleSubtask={handleToggleSubtask} 
+      />
     </div>
   );
 }

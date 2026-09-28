@@ -1,7 +1,7 @@
 {
-  "name": "LéaBloom",
-  "short_name": "LéaBloom",
-  "description": "Your personal life planner ♡",
+  "name": "LeaLife",
+  "short_name": "LeaLife",
+  "description": "Votre compagnon d'organisation personnelle ♡",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

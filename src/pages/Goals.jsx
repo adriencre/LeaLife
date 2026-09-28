@@ -76,10 +76,19 @@ export default function Goals() {
         </div>
         {progress === 100 && totalGoals > 0 && (
           <div className="goals-complete-msg animate-scale-in">
-            <span>🎉</span> Bravo Léa ! Tous les objectifs sont terminés ♡
+            <span>🎉</span> Bravo {state.settings.name || 'Léa'} ! Tous les objectifs sont terminés ♡
           </div>
         )}
       </div>
+
+      {/* Empty State */}
+      {totalGoals === 0 && (
+        <div className="card" style={{ textAlign: 'center', padding: 'var(--space-2xl) var(--space-lg)', color: 'var(--text-tertiary)', marginBottom: 'var(--space-lg)' }}>
+          <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: 'var(--space-sm)' }}>🎯</span>
+          <p style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: 'var(--space-xs)' }}>Aucun objectif pour le moment</p>
+          <p style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>Commence ta semaine du bon pied en ajoutant tes objectifs ♡</p>
+        </div>
+      )}
 
       {/* Goals by Category */}
       {Object.entries(grouped).map(([cat, goals]) => (

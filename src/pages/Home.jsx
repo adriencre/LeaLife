@@ -1,6 +1,6 @@
 import { useApp } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
-import { getGreeting, isToday, isThisWeek, CATEGORIES, haptic, formatTime } from '../utils/helpers';
+import { getGreeting, isToday, CATEGORIES, haptic, formatTime } from '../utils/helpers';
 import './Home.css';
 
 function DecoFlower({ className }) {
@@ -64,9 +64,9 @@ export default function Home() {
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   // Today's tasks
-  const todayTasks = state.tasks.filter(
-    t => t.date === now.toISOString().split('T')[0] && !t.completed
-  );
+  const todayDateStr = now.toISOString().split('T')[0];
+  const todayAllTasks = state.tasks.filter(t => t.date === todayDateStr);
+  const todayTasks = todayAllTasks.filter(t => !t.completed);
 
   // Weekly goals
   const totalGoals = state.goals.length;
@@ -105,7 +105,7 @@ export default function Home() {
         <div className="home-header-content">
           <h1 className="home-greeting">
             {greeting},<br />
-            {state.settings.name} <span className="home-heart">♡</span>
+            {state.settings.name || 'Léa'} <span className="home-heart">♡</span>
           </h1>
           <p className="home-date">{formattedDate}</p>
         </div>
@@ -192,10 +192,15 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          ) : (
+          ) : todayAllTasks.length > 0 ? (
             <div className="home-empty-tasks">
               <span>✨</span>
               <p>Tout est fait ! Bravo ♡</p>
+            </div>
+          ) : (
+            <div className="home-empty-tasks">
+              <span>🌸</span>
+              <p>Rien de prévu pour aujourd'hui ♡</p>
             </div>
           )}
         </div>
@@ -207,35 +212,48 @@ export default function Home() {
           <h2 className="section-title">
             <span>🎯</span> Objectifs de la semaine
           </h2>
-          <span className="home-goal-count">
-            {completedGoals} / {totalGoals} terminés
-          </span>
+          {totalGoals > 0 && (
+            <span className="home-goal-count">
+              {completedGoals} / {totalGoals} terminés
+            </span>
+          )}
         </div>
         <div className="card home-goals-card">
-          <div className="progress-bar" style={{ marginBottom: 'var(--space-lg)' }}>
-            <div
-              className="progress-fill"
-              style={{ width: `${goalProgress}%` }}
-            />
-          </div>
-          <div className="home-goals-grid">
-            {Object.entries(goalsByCategory).map(([cat, data]) => (
-              <button
-                key={cat}
-                className="home-goal-item"
-                onClick={() => navigate('/goals')}
-              >
-                <div className={`home-goal-icon-wrapper`} style={{ background: `var(--cat-${cat}-bg)` }}>
-                  <span>{CATEGORIES[cat]?.icon}</span>
-                </div>
-                <span className="home-goal-label">{CATEGORIES[cat]?.label}</span>
-                <span className="home-goal-progress">{data.done}/{data.total}</span>
+          {totalGoals > 0 ? (
+            <>
+              <div className="progress-bar" style={{ marginBottom: 'var(--space-lg)' }}>
+                <div
+                  className="progress-fill"
+                  style={{ width: `${goalProgress}%` }}
+                />
+              </div>
+              <div className="home-goals-grid">
+                {Object.entries(goalsByCategory).map(([cat, data]) => (
+                  <button
+                    key={cat}
+                    className="home-goal-item"
+                    onClick={() => navigate('/goals')}
+                  >
+                    <div className={`home-goal-icon-wrapper`} style={{ background: `var(--cat-${cat}-bg)` }}>
+                      <span>{CATEGORIES[cat]?.icon}</span>
+                    </div>
+                    <span className="home-goal-label">{CATEGORIES[cat]?.label}</span>
+                    <span className="home-goal-progress">{data.done}/{data.total}</span>
+                  </button>
+                ))}
+              </div>
+              <button className="section-link" style={{ justifyContent: 'flex-end', width: '100%', marginTop: 'var(--space-sm)' }} onClick={() => navigate('/goals')}>
+                Détails →
               </button>
-            ))}
-          </div>
-          <button className="section-link" style={{ justifyContent: 'flex-end', width: '100%', marginTop: 'var(--space-sm)' }} onClick={() => navigate('/goals')}>
-            Détails →
-          </button>
+            </>
+          ) : (
+            <div style={{ textAlign: 'center', padding: 'var(--space-lg) 0', color: 'var(--text-tertiary)' }}>
+              <p style={{ fontSize: 'var(--text-sm)', marginBottom: 'var(--space-sm)' }}>Aucun objectif défini cette semaine ✨</p>
+              <button className="section-link" style={{ margin: '0 auto', fontSize: 'var(--text-xs)' }} onClick={() => navigate('/goals')}>
+                + Ajouter mes premiers objectifs →
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
